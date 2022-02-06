@@ -5,6 +5,7 @@ lazy val root = (project in file("."))
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(ScalaJSBundlerPlugin)
   .settings(
+    Compile / scalaJSLinkerConfig ~= { _.withSourceMap(false) },
     Compile / npmDependencies ++= Seq(
       "react" -> "17.0.2",
       "react-dom" -> "17.0.2",

@@ -5,7 +5,6 @@
 ```
 sbt fastOptJS / webpack
 ```
-_NOTE: This command doesn't work right now due to a bug in some dependencies._
 
 #### For production:
 ```
