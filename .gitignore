@@ -1,5 +1,13 @@
-target/
+# IDE Stuff
 .idea/
 .bsp/
+.metals/
+.bloop/
+.vscode/
+
+# Artifacts
+target/
 node_modules/
 null/
+project/project/
+project/metals.sbt
