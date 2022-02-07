@@ -10,6 +10,6 @@ object Main {
       .build
 
     val root = dom.document.getElementById("app")
-    HelloMessage("John").renderIntoDOM(root)
+    HelloMessage("JOHN").renderIntoDOM(root)
   }
 }
