@@ -2,14 +2,22 @@
 
 ## Compiling JS
 ### For development:
+Install JS dependencies:
 ```
-sbt fastOptJS / webpack
-```
-
-#### For production:
-```
-sbt fullOptJS / webpack
+npm install
 ```
 
-After compiling, the code can be run by
-opening `index.html` in your browser.
+Compile Scala to JS:
+```
+sbt fastLinkJS
+```
+
+Run `snowpack` dev server:
+```
+npx snowpack dev
+```
+
+### For production:
+```
+sbt fullLinkJS 
+```
