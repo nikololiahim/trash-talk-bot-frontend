@@ -4,6 +4,6 @@ module.exports = {
   },
   mount: {
     public: "/",
-    "target/scala-3.1.1/trash-talk-bot-frontend-fastopt": "/",
+    "target/scala-2.13/trash-talk-bot-frontend-fastopt": "/",
   },
 }
