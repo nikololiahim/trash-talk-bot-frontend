@@ -27,18 +27,10 @@ object ChatFind {
       props.setChatId(inputVal)
     }
 
-    def getInputClassName: String = {
-      if (errorState) {
-        "form__field error_input"
-      } else {
-        "form__field"
-      }
-    }
-
     div()(
       div(className:="form__group field",
         input(
-          className := getInputClassName,
+          className := (if (errorState) "form__field error_input" else "form__field"),
           placeholder := "ChatID",
           onChange := (handleChange(_)),
           name:="chatID",
