@@ -1,33 +1,27 @@
 package trash.bot
 
-import slinky.core._
-import slinky.core.annotations.react
 import slinky.web.html._
+import slinky.core.facade.Hooks._
+import slinky.core.{FunctionalComponent, SyntheticEvent}
+import trash.bot.ChatFind.ChatFindProps
+import trash.bot.MessageList.MessageListProps
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
-@JSImport("resources/App.css", JSImport.Default)
 @js.native
+@JSImport("resources/App.css", JSImport.Default)
 object AppCSS extends js.Object
 
-@JSImport("resources/logo.svg", JSImport.Default)
-@js.native
-object ReactLogo extends js.Object
-
-@react class App extends StatelessComponent {
-  type Props = Unit
-
+object App {
   private val css = AppCSS
 
-  def render() = {
-    div(className := "App")(
-      header(className := "App-header")(
-        img(src := ReactLogo.asInstanceOf[String], className := "App-logo", alt := "logo"),
-        h1(className := "App-title")("Welcome to React (with Scala.js!)")
-      ),
-      p(className := "App-intro")(
-        "To get started, edit ", code("App.scala"), " and save to reload."
+  val App = FunctionalComponent[Unit] { props =>
+    val (chatID, setChatID) = useState(0)
+    div(className:="App",
+      div(className:="center",
+        ChatFind.ChatFind(ChatFindProps(setChatID)),
+        MessageList.MessageList(MessageListProps(chatID))
       )
     )
   }

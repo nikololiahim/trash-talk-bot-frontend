@@ -7,7 +7,7 @@ import scala.scalajs.LinkingInfo
 import slinky.core._
 import slinky.web.ReactDOM
 import slinky.hot
-
+import App._
 import org.scalajs.dom
 
 @JSImport("resources/index.css", JSImport.Default)
