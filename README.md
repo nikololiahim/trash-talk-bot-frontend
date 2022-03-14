@@ -2,22 +2,16 @@
 
 ## Compiling JS
 ### For development:
-Install JS dependencies:
+**Start webpack dev server**
 ```
-npm install
+sbt dev
 ```
-
-Compile Scala to JS:
-```
-sbt fastLinkJS
-```
-
-Run `snowpack` dev server:
-```
-npx snowpack dev
-```
+Then you can open application at http://localhost:8080 in browser.
+The dev server support hot reload.
 
 ### For production:
+**Generate built application**
 ```
-sbt fullLinkJS 
+sbt build
 ```
+Result will be generated at _build_ directory. It minifies 
