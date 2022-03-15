@@ -10,7 +10,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 @js.native
-@JSImport("resources/App.css", JSImport.Default)
+@JSImport("../classes/App.css", JSImport.Default)
 object AppCSS extends js.Object
 
 object App {
