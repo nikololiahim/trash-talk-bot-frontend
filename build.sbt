@@ -32,9 +32,6 @@ lazy val root = project
       _.withModuleKind(ModuleKind.ESModule)
         .withSourceMap(false)
     },
-
-    javaOptions += "-Dwebdriver.chrome.driver=/usr/bin/chromedriver",
-    Test / parallelExecution := false,
     Test / jsEnv := {
       new SeleniumJSEnv(
         new ChromeOptions().setHeadless(true),
