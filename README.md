@@ -1,23 +1,27 @@
 # Admin Page for telegram-trash-talk bot
+##Required tools
+Application requires node with 16 version and last version of sbt.
+(Application is incompatible with 17 version of node)
+
 
 ## Compiling JS
 ### For development:
-Install JS dependencies:
+**Start webpack dev server**
 ```
-npm install
+sbt dev
 ```
+Then you can open application at http://localhost:8080 in browser.
+The dev server support hot reload.
 
-Compile Scala to JS:
+### For testing
+Start tests
 ```
-sbt fastLinkJS
-```
-
-Run `snowpack` dev server:
-```
-npx snowpack dev
+sbt test
 ```
 
 ### For production:
+**Generate built application**
 ```
-sbt fullLinkJS 
+sbt build
 ```
+Result will be generated at _build_ directory. It minifies 
