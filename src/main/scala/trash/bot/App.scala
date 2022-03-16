@@ -6,15 +6,8 @@ import slinky.core.{FunctionalComponent, SyntheticEvent}
 import trash.bot.ChatFind.ChatFindProps
 import trash.bot.MessageList.MessageListProps
 
-import scala.scalajs.js
-import scala.scalajs.js.annotation.JSImport
-
-@js.native
-@JSImport("../classes/App.css", JSImport.Default)
-object AppCSS extends js.Object
-
 object App {
-  private val css = AppCSS
+  private val css = Css.App
 
   val App = FunctionalComponent[Unit] { props =>
     val (chatID, setChatID) = useState(0)

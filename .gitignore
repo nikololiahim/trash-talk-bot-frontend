@@ -11,3 +11,4 @@ node_modules/
 null/
 project/project/
 project/metals.sbt
+dist/
