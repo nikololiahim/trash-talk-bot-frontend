@@ -9,8 +9,11 @@ import slinky.hot
 import App._
 import org.scalajs.dom
 
+import ConsoleAmogus._
+
 object Main {
-  val css = Css.Index
+  Css.Index
+  AmogusImport
 
   @JSExportTopLevel("main")
   def main(args: Array[String]): Unit = {
@@ -25,6 +28,7 @@ object Main {
       elem
     }
 
+    dom.console.amogus("Vitaliy", 0, true)
     ReactDOM.render(App(), container)
   }
 }
