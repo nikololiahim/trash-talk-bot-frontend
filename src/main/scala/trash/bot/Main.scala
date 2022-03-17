@@ -1,7 +1,6 @@
 package trash.bot
 
-import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSExportTopLevel, JSImport}
+import scala.scalajs.js.annotation.JSExportTopLevel
 import scala.scalajs.LinkingInfo
 
 import slinky.core._
@@ -10,15 +9,14 @@ import slinky.hot
 import App._
 import org.scalajs.dom
 
-@JSImport("resources/index.css", JSImport.Default)
-@js.native
-object IndexCSS extends js.Object
+import ConsoleAmogus._
 
 object Main {
-  val css = IndexCSS
+  Css.Index
+  AmogusImport
 
   @JSExportTopLevel("main")
-  def main(): Unit = {
+  def main(args: Array[String]): Unit = {
     if (LinkingInfo.developmentMode) {
       hot.initialize()
     }
@@ -30,6 +28,7 @@ object Main {
       elem
     }
 
+    dom.console.amogus("Vitaliy", 0, true)
     ReactDOM.render(App(), container)
   }
 }

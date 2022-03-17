@@ -1,40 +1,52 @@
-enablePlugins(ScalaJSBundlerPlugin)
+import org.scalajs.jsenv.selenium.SeleniumJSEnv
+import org.openqa.selenium.chrome.ChromeOptions
 
-name := "trash-talk-bot-frontend"
+ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / scalaVersion := "2.13.6"
 
-scalaVersion := "2.13.6"
+val slinkyVersion = "0.7.2"
 
-Compile / npmDependencies += "react" -> "16.13.1"
-Compile / npmDependencies += "react-dom" -> "16.13.1"
-Compile / npmDependencies += "react-proxy" -> "1.1.8"
 
-Compile / npmDevDependencies += "file-loader" -> "6.2.0"
-Compile / npmDevDependencies += "style-loader" -> "2.0.0"
-Compile / npmDevDependencies += "css-loader" -> "5.2.6"
-Compile / npmDevDependencies += "html-webpack-plugin" -> "4.5.1"
-Compile / npmDevDependencies += "copy-webpack-plugin" -> "6.4.0"
-Compile / npmDevDependencies += "webpack-merge" -> "5.8.0"
+def seleniumConfig(
+    port: Int,
+    baseDir: File,
+    testJsDir: File,
+): SeleniumJSEnv.Config = {
+  import _root_.io.github.bonigarcia.wdm.WebDriverManager
+  WebDriverManager.chromedriver().setup()
+  SeleniumJSEnv
+    .Config()
+    .withMaterializeInServer(
+      testJsDir.getAbsolutePath,
+      s"http://localhost:$port/${testJsDir.relativeTo(baseDir).get}/",
+    )
+}
 
-libraryDependencies += "me.shadaj" %%% "slinky-web" % "0.7.0"
-libraryDependencies += "me.shadaj" %%% "slinky-hot" % "0.7.0"
-libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.11" % Test
-
-scalacOptions += "-Ymacro-annotations"
-
-webpack / version := "4.44.2"
-startWebpackDevServer / version := "3.11.2"
-
-webpackResources := baseDirectory.value / "webpack" * "*"
-
-fastOptJS / webpackConfigFile := Some(baseDirectory.value / "webpack" / "webpack-fastopt.config.js")
-fullOptJS / webpackConfigFile := Some(baseDirectory.value / "webpack" / "webpack-opt.config.js")
-Test / webpackConfigFile := Some(baseDirectory.value / "webpack" / "webpack-core.config.js")
-
-fastOptJS / webpackDevServerExtraArgs := Seq("--inline", "--hot")
-fastOptJS / webpackBundlingMode := BundlingMode.LibraryOnly()
-
-Test / requireJsDomEnv := true
-
-addCommandAlias("dev", ";fastOptJS::startWebpackDevServer;~fastOptJS")
-
-addCommandAlias("build", "fullOptJS::webpack")
+lazy val root = project
+  .in(file("."))
+  .enablePlugins(ScalaJSPlugin)
+  .settings(
+    name := "trash-talk-bot-frontend",
+    scalaJSUseMainModuleInitializer := true,
+    scalaJSLinkerConfig ~= {
+      _.withModuleKind(ModuleKind.ESModule)
+        .withSourceMap(false)
+    },
+    Test / jsEnv := {
+      new SeleniumJSEnv(
+        new ChromeOptions().setHeadless(true),
+        seleniumConfig(
+          port = 3000,
+          baseDir = baseDirectory.value,
+          testJsDir = (Test / fastLinkJS / scalaJSLinkerOutputDirectory).value,
+        ),
+      )
+    },
+    licenses := Seq(License.MIT),
+    libraryDependencies ++= Seq(
+      "me.shadaj" %%% "slinky-core" % slinkyVersion,
+      "me.shadaj" %%% "slinky-web" % slinkyVersion,
+      "me.shadaj" %%% "slinky-hot" % slinkyVersion,
+      "org.scalameta" %%% "munit" % "1.0.0-M2",
+    ),
+  )
